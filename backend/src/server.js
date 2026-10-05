@@ -3,6 +3,8 @@ import cors from 'cors';
 import authRouter from './routes/auth.js';
 import categoriasRouter from './routes/categorias.js';
 import produtosRouter from './routes/produtos.js';
+import enderecosRouter from './routes/enderecos.js';
+import pedidosRouter from './routes/pedidos.js';
 
 const app = express();
 const PORTA = 3000;
@@ -13,6 +15,8 @@ app.use(express.json());  // converte o corpo JSON das requisições em objeto J
 app.use('/api/produtos', produtosRouter);
 app.use('/api/categorias', categoriasRouter);
 app.use('/api/auth', authRouter);
+app.use('/api/enderecos', enderecosRouter);
+app.use('/api/pedidos', pedidosRouter);
 
 // Rota de teste
 app.get('/api/saude', (req, res) => {
