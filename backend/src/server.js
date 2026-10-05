@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import categoriasRouter from './routes/categorias.js';
 import produtosRouter from './routes/produtos.js';
 
 const app = express();
@@ -15,6 +16,7 @@ app.get('/api/saude', (req, res) => {
 });
 
 app.use('/api/produtos', produtosRouter);
+app.use('/api/categorias', categoriasRouter);
 
 app.listen(PORTA, () => {
     console.log(`Servidor rodando em http://localhost:${PORTA}`);

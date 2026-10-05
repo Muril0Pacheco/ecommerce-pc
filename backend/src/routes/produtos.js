@@ -3,9 +3,6 @@ import { pool } from '../db.js';
 
 const router = Router();
 
-// Colunas e JOINs compartilhados pelas duas rotas.
-// LEFT JOIN: produtos sem modelo 3D também aparecem (modelo_3d = null).
-// preco::float8 converte NUMERIC para número (o driver pg devolveria texto).
 const SELECT_PRODUTO = `
     SELECT p.id,
            p.nome,
@@ -21,9 +18,37 @@ const SELECT_PRODUTO = `
     LEFT JOIN modelo_3d m ON m.produto_id = p.id
 `;
 
-// GET /api/produtos  → lista todos
+// GET /api/produtos            → todos
+// GET /api/produtos?categoria=1 → filtra por categoria
+// GET /api/produtos?busca=rtx   → busca no nome e na descrição
 router.get('/', async (req, res) => {
-    const resultado = await pool.query(`${SELECT_PRODUTO} ORDER BY p.id`);
+    const { categoria, busca } = req.query;
+
+    const condicoes = [];
+    const valores = [];
+
+    if (categoria !== undefined) {
+        const idCategoria = Number(categoria);
+        if (!Number.isInteger(idCategoria)) {
+            return res.status(400).json({ erro: 'Categoria inválida' });
+        }
+        valores.push(idCategoria);
+        condicoes.push(`p.categoria_id = $${valores.length}`);
+    }
+
+    if (typeof busca === 'string' && busca.trim() !== '') {
+        valores.push(`%${busca.trim()}%`);
+        condicoes.push(
+            `(p.nome ILIKE $${valores.length} OR p.descricao ILIKE $${valores.length})`
+        );
+    }
+
+    const where = condicoes.length > 0 ? `WHERE ${condicoes.join(' AND ')}` : '';
+
+    const resultado = await pool.query(
+        `${SELECT_PRODUTO} ${where} ORDER BY p.id`,
+        valores
+    );
     res.json(resultado.rows);
 });
 
@@ -35,7 +60,6 @@ router.get('/:id', async (req, res) => {
         return res.status(400).json({ erro: 'ID inválido' });
     }
 
-    // $1 é um parâmetro: o valor é enviado separado do SQL (evita SQL injection)
     const resultado = await pool.query(`${SELECT_PRODUTO} WHERE p.id = $1`, [id]);
 
     if (resultado.rows.length === 0) {
