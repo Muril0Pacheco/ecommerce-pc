@@ -1,5 +1,4 @@
-import { criarVisualizador } from './viewer.js';
-
+import { criarVisualizador } from '../viewer/viewer.js';
 const container = document.getElementById('visualizador');
 const visualizador = criarVisualizador(container);
 
