@@ -25,3 +25,53 @@ a:hover { text-decoration: underline; }
 #cabecalho nav { display: flex; gap: 16px; }
 
 main { max-width: 1100px; margin: 24px auto; padding: 0 24px; }
+
+#categorias {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+}
+
+#categorias a {
+    padding: 6px 14px;
+    border: 1px solid #444;
+    border-radius: 16px;
+    color: #ccc;
+}
+
+#categorias a.ativa {
+    background: #6cb4ff;
+    border-color: #6cb4ff;
+    color: #111;
+}
+
+.grade {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+}
+
+.cartao {
+    display: block;
+    padding: 16px;
+    background: #222;
+    border: 1px solid #333;
+    border-radius: 8px;
+    color: #eee;
+}
+
+.cartao:hover { border-color: #6cb4ff; text-decoration: none; }
+.cartao h3 { margin: 0 0 8px; font-size: 16px; }
+.cartao .categoria { margin: 0; color: #999; font-size: 14px; }
+.cartao .preco { margin: 12px 0 0; font-size: 18px; font-weight: bold; }
+
+.selo-3d {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 2px 8px;
+    background: #2a4a2a;
+    border-radius: 4px;
+    font-size: 12px;
+    color: #8f8;
+}
