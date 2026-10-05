@@ -2,6 +2,7 @@ import '../estilo.css';
 import { montarCabecalho } from '../componentes/cabecalho.js';
 import { api } from '../api/api.js';
 import { formatarPreco, escapar } from '../utils.js';
+import { adicionarAoCarrinho, lerCarrinho } from '../carrinho.js';
 
 montarCabecalho();
 
@@ -32,6 +33,21 @@ function desenharProduto(p) {
         </div>
         <p id="aviso-carrinho"></p>
     `;
+
+        document.getElementById('btn-carrinho').addEventListener('click', () => {
+        const aviso = document.getElementById('aviso-carrinho');
+        const noCarrinho = lerCarrinho()
+            .find((i) => i.produto_id === p.id)?.quantidade ?? 0;
+
+        if (noCarrinho >= p.estoque) {
+            aviso.textContent =
+                `Você já tem o máximo disponível no carrinho (${p.estoque}).`;
+            return;
+        }
+
+        adicionarAoCarrinho(p.id);
+        aviso.innerHTML = 'Adicionado! <a href="/carrinho.html">Ver carrinho</a>';
+    });
 }
 
 async function iniciar() {
@@ -47,7 +63,6 @@ async function iniciar() {
         elMensagem.textContent = '';
         desenharProduto(produto);
     } catch (erro) {
-        // 404 e "ID inválido" chegam aqui com a mensagem do backend
         elMensagem.textContent = erro.message;
     }
 }

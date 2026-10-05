@@ -1,3 +1,5 @@
+import { totalDeItens } from '../carrinho.js';
+
 // Monta o cabeçalho em qualquer página que tenha <header id="cabecalho">
 export function montarCabecalho() {
     const alvo = document.getElementById('cabecalho');
@@ -14,7 +16,7 @@ export function montarCabecalho() {
         </form>
 
         <nav>
-            <a href="/carrinho.html">Carrinho</a>
+            <a href="/carrinho.html">Carrinho (${totalDeItens()})</a>
             ${logado
                 ? '<a href="/conta.html">Minha conta</a>'
                 : '<a href="/login.html">Entrar</a>'}
