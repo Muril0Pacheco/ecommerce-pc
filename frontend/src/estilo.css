@@ -118,3 +118,15 @@ main { max-width: 1100px; margin: 24px auto; padding: 0 24px; }
 .formulario label { display: flex; flex-direction: column; gap: 4px; }
 .formulario input { padding: 9px; }
 [hidden] { display: none !important; }
+
+.opcao-endereco {
+    display: block;
+    padding: 10px;
+    margin-bottom: 8px;
+    background: #222;
+    border: 1px solid #333;
+    border-radius: 6px;
+}
+
+#novo-endereco { margin: 16px 0; }
+#novo-endereco summary { cursor: pointer; color: #6cb4ff; }
