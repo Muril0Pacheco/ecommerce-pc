@@ -1,0 +1,27 @@
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: system-ui, sans-serif;
+    background: #181818;
+    color: #eee;
+}
+
+a { color: #6cb4ff; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+#cabecalho {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 12px 24px;
+    background: #222;
+    border-bottom: 1px solid #333;
+}
+
+#cabecalho .logo { font-size: 20px; font-weight: bold; color: #fff; }
+#cabecalho .busca { flex: 1; display: flex; gap: 8px; }
+#cabecalho .busca input { flex: 1; padding: 8px; }
+#cabecalho nav { display: flex; gap: 16px; }
+
+main { max-width: 1100px; margin: 24px auto; padding: 0 24px; }
