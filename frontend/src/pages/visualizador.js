@@ -50,4 +50,15 @@ async function iniciar() {
         .catch((erro) => console.error('Erro ao carregar o modelo:', erro));
 }
 
+// Instruções somem depois de 6 segundos
+setTimeout(() => {
+    document.getElementById('instrucoes').style.opacity = '0';
+}, 6000);
+
+// Tela cheia: o container inteiro (canvas + botões) entra em tela cheia
+document.getElementById('btn-tela-cheia').addEventListener('click', () => {
+    if (document.fullscreenElement) document.exitFullscreen();
+    else container.requestFullscreen();
+});
+
 iniciar();
